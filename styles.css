@@ -1,0 +1,108 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Center the media container */
+.media-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center elements horizontally */
+    justify-content: center; /* Center elements vertically */
+    width: 100%;
+}
+
+video, img {
+    max-width: 1000px;
+    width: 100%;
+}
+
+.slider {
+    position: relative;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Center the video and image container */
+.video-container, .image-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin: 0 auto; /* Center the container itself */
+}
+
+.image-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    max-width: 1000px; /* Max-width for the container */
+    height: auto; /* Let height adjust based on image */
+    background-color: #d3d3d3; /* Gray placeholder background before image loads */
+    border: 1px solid #dee2e6; /* Light gray border */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+.image-container img {
+    max-width: 100%; /* Ensure image does not overflow container */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Ensure block display to work with flexbox */
+    border: 1px solid #dee2e6; /* Light gray border */
+    border-radius: 0.25rem; /* Rounded corners */
+}
+
+.indicator {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background-color: red;
+    transition: left 0.1s linear; /* Smooth transition for indicator */
+    z-index: 10;
+}
+
+.hover-indicator {
+    position: absolute;
+    height: 100%;
+    width: 2px;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent hover indicator */
+    display: none; /* Hidden by default */
+    z-index: 5; /* Ensure it's behind the main indicator */
+}
+
+.navbar-nav .nav-link {
+    cursor: pointer;
+    color: white; /* Ensure text is white */
+}
+
+/* Optional padding adjustment for better visual alignment */
+.container {
+    padding-top: 32px;
+}
+
+.video-container {
+    max-width: 1000px;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+.duration-input-container {
+    margin-top: 10px;
+    width: 1000px;
+    text-align: left;
+    background-color: #f7f7f9;
+    border-radius: 0.25rem;
+    padding: 24px;
+    justify-content: right;
+}
+
+.duration-align-container {
+    width: 220px;
+}
+
+.duration-label {
+    font-weight: bold;
+}
+
+.duration-controls {
+    display: flex;
+    align-items: center;
+}
