@@ -106,3 +106,14 @@ video, img {
     display: flex;
     align-items: center;
 }
+
+.duration-input-container {
+    margin-top: 10px;
+    width: 1000px;
+    text-align: left;
+    background-color: #f7f7f9;
+    border-radius: 0.25rem;
+    padding: 24px;
+    display: flex;
+    justify-content: space-between;
+}

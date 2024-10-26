@@ -8,10 +8,14 @@ const hoverIndicator = document.querySelector('.hover-indicator'); // Hover indi
 const durationInput = document.getElementById('durationInput'); // Input field for custom duration
 const increaseDuration = document.getElementById('increaseDuration'); // Button to increase duration
 const decreaseDuration = document.getElementById('decreaseDuration'); // Button to decrease duration
+const indicatorOffsetInput = document.getElementById('delayInput'); // Renamed for clarity
+const increaseIndicatorOffset = document.getElementById('increaseDelay');
+const decreaseIndicatorOffset = document.getElementById('decreaseDelay');
 
 let videoDuration = 0;
 let customDuration = 0; // Custom duration to be used for calculations
 let imageWidth = 0;
+let indicatorOffset = 0; // Offset in seconds for indicator only
 
 // Percentage-based offsets for the indicator
 const startOffsetPercentage = (88 / 2393) * 100; // Start at 88px based on the original image width
@@ -176,4 +180,29 @@ imageContainer.addEventListener('click', (event) => {
         const newLeftPosition = (startOffsetPercentage + clickPercentage * (100 - startOffsetPercentage - endOffsetPercentage)) + '%';
         indicator.style.left = newLeftPosition;
     }
+});
+
+// Function to parse and apply indicator offset
+function updateIndicatorOffset(seconds) {
+    indicatorOffset = Math.max(0, indicatorOffset + seconds); // Ensure offset is not negative
+    indicatorOffsetInput.value = formatTime(indicatorOffset);
+}
+
+// Update offset input for indicator only
+indicatorOffsetInput.addEventListener('input', () => {
+    indicatorOffset = parseTime(indicatorOffsetInput.value) || 0;
+});
+
+// Increase and decrease offset for indicator by 10 seconds
+increaseIndicatorOffset.addEventListener('click', () => updateIndicatorOffset(10));
+decreaseIndicatorOffset.addEventListener('click', () => updateIndicatorOffset(-10));
+
+// Update indicator position with offset as the video plays
+videoPreview.addEventListener('timeupdate', () => {
+    const currentTimeWithOffset = videoPreview.currentTime + indicatorOffset;
+    const percentage = currentTimeWithOffset / customDuration; // Use custom duration if applicable
+
+    // Calculate the new position of the indicator based on the adjusted time
+    const newLeftPosition = `${startOffsetPercentage + percentage * (100 - startOffsetPercentage - endOffsetPercentage)}%`;
+    indicator.style.left = newLeftPosition;
 });

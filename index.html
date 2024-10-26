@@ -57,7 +57,19 @@
                           <button class="btn btn-outline-secondary" type="button">Button</button>
                         </div>
                       </div> -->
-                    <div class="duration-input-container d-flex flex-row-reverse">
+                      <div class="duration-input-container d-flex flex-row">
+                        <div class="duration-align-container">
+                            <label for="delayInput" class="duration-label">Delay Start</label>
+                            <div class="duration-controls input-group">
+                                <input type="text" class="form-control" id="delayInput" placeholder="MM:SS">
+                                <div class="input-group-append">
+                                    <button id="increaseDelay" class="btn btn-outline-secondary">+</button>
+                                    <button id="decreaseDelay" class="btn btn-outline-secondary">-</button>
+                                </div>
+                            </div>
+                            <small class="form-text text-muted">Adjust to add delay before playback.</small>
+                        </div>
+                        <!-- Existing End Time field -->
                         <div class="duration-align-container">
                             <label for="durationInput" class="duration-label">End time (of activity map)</label>
                             <div class="duration-controls input-group">
@@ -67,7 +79,7 @@
                                     <button id="decreaseDuration" class="btn btn-outline-secondary">-</button>
                                 </div>
                             </div>
-                        <small class="form-text text-muted">Default value is video’s duration. Modify to sync video with timeline.</small>
+                            <small class="form-text text-muted">Default value is video’s duration.</small>
                         </div>
                     </div>
                 </div>
