@@ -8,14 +8,14 @@ const hoverIndicator = document.querySelector('.hover-indicator'); // Hover indi
 const durationInput = document.getElementById('durationInput'); // Input field for custom duration
 const increaseDuration = document.getElementById('increaseDuration'); // Button to increase duration
 const decreaseDuration = document.getElementById('decreaseDuration'); // Button to decrease duration
-const indicatorOffsetInput = document.getElementById('delayInput'); // Renamed for clarity
-const increaseIndicatorOffset = document.getElementById('increaseDelay');
-const decreaseIndicatorOffset = document.getElementById('decreaseDelay');
+const delayInput = document.getElementById('delayInput'); // Renamed for clarity
+const increaseDelay = document.getElementById('increaseDelay');
+const decreaseDelay = document.getElementById('decreaseDelay');
 
 let videoDuration = 0;
 let customDuration = 0; // Custom duration to be used for calculations
 let imageWidth = 0;
-let indicatorOffset = 0; // Offset in seconds for indicator only
+let pixelOffset = 0; // Offset in pixels for start position of the indicator
 
 // Percentage-based offsets for the indicator
 const startOffsetPercentage = (88 / 2393) * 100; // Start at 88px based on the original image width
@@ -182,27 +182,28 @@ imageContainer.addEventListener('click', (event) => {
     }
 });
 
-// Function to parse and apply indicator offset
-function updateIndicatorOffset(seconds) {
-    indicatorOffset = Math.max(0, indicatorOffset + seconds); // Ensure offset is not negative
-    indicatorOffsetInput.value = formatTime(indicatorOffset);
+// Function to parse and apply pixel offset
+function updatePixelOffset(pixels) {
+    pixelOffset = Math.max(0, pixelOffset + pixels); // Ensure pixelOffset is not negative
+    delayInput.value = pixelOffset + ' px';
 }
 
-// Update offset input for indicator only
-indicatorOffsetInput.addEventListener('input', () => {
-    indicatorOffset = parseTime(indicatorOffsetInput.value) || 0;
+// Update offset input to reflect pixel changes
+delayInput.addEventListener('input', () => {
+    pixelOffset = parseInt(delayInput.value) || 0;
 });
 
-// Increase and decrease offset for indicator by 10 seconds
-increaseIndicatorOffset.addEventListener('click', () => updateIndicatorOffset(10));
-decreaseIndicatorOffset.addEventListener('click', () => updateIndicatorOffset(-10));
+// Increase and decrease pixel offset
+increaseDelay.addEventListener('click', () => updatePixelOffset(10)); // Adjust by 10 pixels
+decreaseDelay.addEventListener('click', () => updatePixelOffset(-10));
 
-// Update indicator position with offset as the video plays
+// Update indicator position with pixel-based offset as the video plays
 videoPreview.addEventListener('timeupdate', () => {
-    const currentTimeWithOffset = videoPreview.currentTime + indicatorOffset;
-    const percentage = currentTimeWithOffset / customDuration; // Use custom duration if applicable
+    const currentTime = videoPreview.currentTime;
+    const percentage = currentTime / customDuration; // Use custom duration if applicable
 
-    // Calculate the new position of the indicator based on the adjusted time
-    const newLeftPosition = `${startOffsetPercentage + percentage * (100 - startOffsetPercentage - endOffsetPercentage)}%`;
+    // Adjust start offset by adding pixelOffset in percentage form
+    const adjustedStartOffset = (88 + pixelOffset) / 2393 * 100; // Original base of 88 px + pixelOffset
+    const newLeftPosition = `${adjustedStartOffset + percentage * (100 - adjustedStartOffset - endOffsetPercentage)}%`;
     indicator.style.left = newLeftPosition;
 });
